@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Register</title>
+    </head>
+    <body> 
+        <h1>Student ID Not Found</h1>
+        <h2>Register below:</h2>
+
+        <form id="registrationForm">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="major">Major:</label><br>
+            <input type="text" id="major" name="major" required><br><br>
+
+            <label for="year">Year:</label><br>
+            <input type="text" id="year" name="year" required><br><br>            
+
+            <label for="major">Email:</label><br>
+            <input type="text" id="email" name="email" required><br><br>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <script>
+            document.getElementById('registrationForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting normally
+
+                window.location.href = 'dashboard.html'; // Redirect to the dashboard page
+            });
+        </script>
+
+    </body>
+</html>
