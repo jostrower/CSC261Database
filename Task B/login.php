@@ -9,14 +9,15 @@ if (!$studentID) {
 
 $sql = "SELECT * FROM Student WHERE ID = $studentID";
 $result = $conn->query($sql);
+//echo "Result rows:" . $result->num_rows ."<br>";
 
 if ($result->num_rows > 0) {
-    //header("Location: dashboard.php?studentID=$studentID");
-    echo "Student found in database. ID: $studentID";
+    header("Location: dashboard.php?studentID=$studentID");
+    //echo "Student found in database. ID: $studentID";
     exit;
 } else {
-    //header("Location: register.php?studentID=$studentID");
-    echo "Student not found. Would redirect to registration page.";
+    header("Location: registration.html?studentID=$studentID");
+    //echo "Student not found. Would redirect to registration page.";
     exit;
 }
 ?>
