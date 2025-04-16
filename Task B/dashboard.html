@@ -14,18 +14,79 @@
                     <h2>Your Classes</h2>
                     <button onclick="alert('Add Class')">Add</button>
                 </div>
-                <ul>
-                    <li>
-                        CSC 261: Databases
-                        <button onclick="alert('Edit Class')">Edit</button>
-                        <button onclick="alert('Remove Class')">Remove</button>
-                      </li>
-                      <li>
-                        CSC 170: Web Dev
-                        <button onclick="alert('Edit Class')">Edit</button>
-                        <button onclick="alert('Remove Class')">Remove</button>
-                      </li>
-                </ul>
+                <table>
+                    <thead>
+                        <th>Class ID</th>
+                        <th>Name</th>
+                        <th>Semester</th>
+                        <th>Year</th>
+                        <th>Professor</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CSC 261</td>
+                            <td>Databases</td>
+                            <td>Spring</td>
+                            <td>2025</td>
+                            <td>Dr. Zhupa</td>
+                            <td>
+                                <button onclick="alert('Edit Class')">Edit</button>
+                                <button onclick="alert('Remove Class')">Remove</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CSC 211</td>
+                            <td>Human Computer Interactions</td>
+                            <td>Spring</td>
+                            <td>2025</td>
+                            <td>Dr. Bai</td>
+                            <td>
+                                <button onclick="alert('Edit Class')">Edit</button>
+                                <button onclick="alert('Remove Class')">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--Group List-->
+            <div>
+                <div>
+                    <h2>Your Groups</h2>
+                    <button onclick="alert('Add Group')">Add</button>
+                </div>
+                <table>
+                    <thead>
+                        <th>Group ID</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Members</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>G1</td>
+                            <td>Group Alpha</td>
+                            <td>CSC 261</td>
+                            <td>3</td>
+                            <td>
+                                <button onclick="alert('Edit Group')">Edit</button>
+                                <button onclick="alert('Remove Group')">Remove</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>G2</td>
+                            <td>Final Project Team</td>
+                            <td>CSC 211</td>
+                            <td>4</td>
+                            <td>
+                                <button onclick="alert('Edit Group')">Edit</button>
+                                <button onclick="alert('Remove Group')">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </body>
