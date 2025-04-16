@@ -48,49 +48,49 @@ INSERT INTO Team (ID, Name, CourseID) VALUES
 
 -- Enrollments
 INSERT INTO Enrollment (StudentID, CourseID) VALUES
-(10, 'FMS161'), (10, 'FMS238'), (10, 'CSC261'), (10, 'CSC211'),
-(11, 'FMS161'), (11, 'PSY110'), (11, 'PSY205'), (11, 'CSC261'),
-(12, 'FMS238'), (12, 'PSY110'), (12, 'PSY205'), (12, 'CSC211'),
-(13, 'FMS161'), (13, 'FMS238'), (13, 'CSC261'), (13, 'CSC211'),
-(14, 'PSY110'), (14, 'PSY205'), (14, 'CSC261'), (14, 'CSC211'),
-(15, 'FMS161'), (15, 'FMS238'), (15, 'PSY110'), (15, 'PSY205'),
-(16, 'FMS238'), (16, 'PSY110'), (16, 'CSC261'), (16, 'CSC211'),
-(17, 'FMS161'), (17, 'PSY205'), (17, 'CSC261'), (17, 'CSC211'),
-(18, 'FMS161'), (18, 'FMS238'), (18, 'CSC261'), (18, 'PSY205');
+(101, 'FMS161'), (101, 'FMS238'), (101, 'CSC261'), (101, 'CSC211'),
+(102, 'FMS161'), (102, 'PSY110'), (102, 'PSY205'), (102, 'CSC261'),
+(103, 'FMS238'), (103, 'PSY110'), (103, 'PSY205'), (103, 'CSC211'),
+(104, 'FMS161'), (104, 'FMS238'), (104, 'CSC261'), (104, 'CSC211'),
+(105, 'PSY110'), (105, 'PSY205'), (105, 'CSC261'), (105, 'CSC211'),
+(106, 'FMS161'), (106, 'FMS238'), (106, 'PSY110'), (106, 'PSY205'),
+(107, 'FMS238'), (107, 'PSY110'), (107, 'CSC261'), (107, 'CSC211'),
+(108, 'FMS161'), (108, 'PSY205'), (108, 'CSC261'), (108, 'CSC211'),
+(109, 'FMS161'), (109, 'FMS238'), (109, 'CSC261'), (109, 'PSY205');
 
 -- Team Members
--- Grace Kelly (10)
+-- Grace Kelly (101)
 INSERT INTO TeamMember (StudentID, TeamID) VALUES
-(10, 401), (10, 403), (10, 409), (10, 411);
+(101, 401), (101, 403), (101, 409), (101, 411);
 
--- Jimmy Stewart (11)
+-- Jimmy Stewart (102)
 INSERT INTO TeamMember (StudentID, TeamID) VALUES
-(11, 402), (11, 405), (11, 407), (11, 409);
+(102, 402), (102, 405), (102, 407), (102, 409);
 
--- Cary Grant (12)
+-- Cary Grant (103)
 INSERT INTO TeamMember (StudentID, TeamID) VALUES
-(12, 404), (12, 405), (12, 408), (12, 412);
+(103, 404), (103, 405), (103, 408), (103, 412);
 
--- Alfred Hitchcock (13)
+-- Alfred Hitchcock (104)
 INSERT INTO TeamMember (StudentID, TeamID) VALUES
-(13, 401), (13, 403), (13, 410), (13, 411);
+(104, 401), (104, 403), (104, 410), (104, 411);
 
--- Leo G. Carroll (14)
+-- Leo G. Carroll (105)
 INSERT INTO TeamMember (StudentID, TeamID) VALUES
-(14, 406), (14, 407), (14, 409), (14, 411);
+(105, 406), (105, 407), (105, 409), (105, 411);
 
--- Joan Fontaine (15)
+-- Joan Fontaine (106)
 INSERT INTO TeamMember (StudentID, TeamID) VALUES
-(15, 402), (15, 404), (15, 406), (15, 408);
+(106, 402), (106, 404), (106, 406), (106, 408);
 
--- Ingrid Bergman (16)
+-- Ingrid Bergman (107)
 INSERT INTO TeamMember (StudentID, TeamID) VALUES
-(16, 403), (16, 406), (16, 410), (16, 411);
+(107, 403), (107, 406), (107, 410), (107, 411);
 
--- Tippi Hedren (17)
+-- Tippi Hedren (108)
 INSERT INTO TeamMember (StudentID, TeamID) VALUES
-(17, 401), (17, 408), (17, 409), (17, 412);
+(108, 401), (108, 408), (108, 409), (108, 412);
 
--- Kim Novak (18)
+-- Kim Novak (109)
 INSERT INTO TeamMember (StudentID, TeamID) VALUES
-(18, 402), (18, 404), (18, 410), (18, 407);
+(109, 402), (109, 404), (109, 410), (109, 407);
