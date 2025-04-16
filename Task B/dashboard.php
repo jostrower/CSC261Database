@@ -7,12 +7,14 @@ if (!$studentID) {
     die("No student ID submitted.");
 }
 
-$studentNameQuery = "SELECT Name FROM Student WHERE ID = $studentID";
-$studentNameResult = $conn->query("$studentNameQuery");
-$studentName = "Student";
-if ($studentNameResult->num_rows > 0) {
-    $row = $studentNameResult->fetch_assoc();
+$studentInfoQuery = "SELECT Name, ID, Major, Year, Email FROM Student WHERE ID = $studentID";
+$studentInfoResult = $conn->query($studentInfoQuery);
+if ($studentInfoResult && $studentInfoResult->num_rows > 0) {
+    $row = $studentInfoResult->fetch_assoc();
     $studentName = $row['Name'];
+    $studentMajor = $row['Major'];
+    $studentYear = $row['Year'];
+    $studentEmail = $row['Email'];
 }
 
 $courseQuery = 
@@ -43,21 +45,26 @@ $teamQueryResult = $conn->query($teamQuery);
     <body>
         <h1>Student Dashboard</h1>
         <h2>Welcome, <?=$studentName?>!</h2>
+        <p>
+            <strong>ID:</strong> <?= $studentID ?><br>
+            <strong>Major:</strong> <?= $studentMajor ?><br>
+            <strong>Year:</strong> <?= $studentYear ?><br>
+            <strong>Email:</strong> <?= htmlspecialchars($studentEmail) ?>
+        </p>
         
         <div>
             <h3>Your courses:</h3>
-            <table>
-                <thead>
-                    <th>Class ID</th>
-                    <th>Name</th>
-                    <th>Semester</th>
-                    <th>Year</th>
-                    <th>Professor</th>
-                    <th>Actions</th>
-                </thead>
-                <?php
-                if ($courseQueryResult->num_rows > 0) {
-                    while ($row = $courseQueryResult->fetch_assoc()): ?>
+            <?php if ($courseQueryResult->num_rows > 0): ?>
+                <table>
+                    <thead>
+                        <th>Class ID</th>
+                        <th>Name</th>
+                        <th>Semester</th>
+                        <th>Year</th>
+                        <th>Professor</th>
+                        <th>Actions</th>
+                    </thead>
+                    <?php while ($row = $courseQueryResult->fetch_assoc()): ?>
                         <tr>
                             <td><?= $row['ID'] ?></td>
                             <td><?= $row['Name'] ?></td>
@@ -65,66 +72,53 @@ $teamQueryResult = $conn->query($teamQuery);
                             <td><?= $row['Year'] ?></td>
                             <td><?= $row['ProfessorName'] ?></td>
                             <td>
-                                
-                                <button onclick="alert('Remove Class')">Remove</button>
+                                <form method="post" action="dropCourse.php">
+                                    <input type="hidden" name="studentID" value="<?= $studentID ?>">
+                                    <input type="hidden" name="courseID" value="<?= $row['ID'] ?>">
+                                    <button type="submit">Drop</button>
+                                </form>
                             </td>
                         </tr>
-                    <?php endwhile;
-                } else {
-                    echo "<li>No courses found.</li>";
-                }
-                ?>
-            </table>
+                     <?php endwhile; ?>
+                </table>
+            <?php else :
+                echo "No courses found.<br>";
+            endif; ?>
         </div>
 
         <div>
             <h3>Your teams:</h3>
-            <table>
-                <thead>
-                    <th>Team ID</th>
-                    <th>Name</th>
-                    <th>Course ID</th>
-                    <th>Actions</th>
-                </thead>
-                <?php
-                if ($teamQueryResult->num_rows > 0) {
-                    while ($row = $teamQueryResult->fetch_assoc()): 
-                        $teamID = $row['ID'];
-                        
-                        $teamMemberQuery = 
-                        "SELECT s.name
-                        FROM Student s
-                        JOIN TeamMember t
-                        ON s.ID = t.StudentID
-                        WHERE t.TeamID = $teamID;";
-                        $teamMemberQueryResult = $conn->query($teamMemberQuery);
-                        ?>
-
+            <?php if ($teamQueryResult->num_rows > 0): ?>
+                <table>
+                    <thead>
+                        <th>Team ID</th>
+                        <th>Name</th>
+                        <th>Course ID</th>
+                        <th>Actions</th>
+                    </thead>
+                    <?php while ($row = $teamQueryResult->fetch_assoc()): ?>
                         <tr>
                             <td><?= $row['ID'] ?></td>
                             <td><?= $row['Name'] ?></td>
                             <td><?= $row['CourseID'] ?></td>
                             <td>
-                                <button onclick="alert('Edit Class')">Edit</button>
-                                <button onclick="alert('Remove Class')">Remove</button>
+                                <form method="get" action="team.php">
+                                    <input type="hidden" name="studentID" value="<?= $studentID ?>">
+                                    <input type="hidden" name="teamID" value="<?= $row['ID'] ?>">
+                                    <button type="submit">View</button>
+                                </form>
+                                <form method="post" action="dropTeam.php">
+                                    <input type="hidden" name="studentID" value="<?= $studentID ?>">
+                                    <input type="hidden" name="teamID" value="<?= $row['ID'] ?>">
+                                    <button type="submit">Leave</button>
+                                </form>
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan = "4">
-                                <strong>Members:</strong>
-                                <ul>
-                                    <?php while ($row2 = $teamMemberQueryResult->fetch_assoc()): ?>
-                                        <li><?= $row2['name'] ?></li>
-                                    <?php endwhile; ?>
-                                </ul>
-                            </td>
-                        </tr>
-                    <?php endwhile;
-                } else {
-                    echo "<li>No courses found.</li>";
-                }
-                ?>
-            </table>
+                    <?php endwhile; ?>
+                </table>
+            <?php else :
+                echo "No teams found.<br>";
+            endif; ?>
         </div>
     </body>
 </html>
