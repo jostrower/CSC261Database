@@ -15,5 +15,5 @@
 	}
 	//else {
 	//	echo "Connected successfully to the database!";
-	//}
+	//}	
 ?>

@@ -43,6 +43,7 @@ $teamQueryResult = $conn->query($teamQuery);
         <title>Student Dashboard</title>
     </head>
     <body>
+        <!-- Header -->
         <h1>Student Dashboard</h1>
         <h2>Welcome, <?=$studentName?>!</h2>
         <p>
@@ -52,8 +53,13 @@ $teamQueryResult = $conn->query($teamQuery);
             <strong>Email:</strong> <?= htmlspecialchars($studentEmail) ?>
         </p>
         
+        <!-- Course List -->
         <div>
             <h3>Your courses:</h3>
+            <form method = "get" action = "searchCourse.php">
+                <input type = "hidden" name = "studentID" value = "<?= $studentID ?>">
+                <button type="submit">Search for courses</button> 
+            </form>
             <?php if ($courseQueryResult->num_rows > 0): ?>
                 <table>
                     <thead>
@@ -85,9 +91,17 @@ $teamQueryResult = $conn->query($teamQuery);
                 echo "No courses found.<br>";
             endif; ?>
         </div>
-
+        
+        <!-- Team List -->
         <div>
             <h3>Your teams:</h3>
+            <form method = "get" action = "searchTeam.php">
+                <input type = "hidden" name = "studentID" value = "<?= $studentID ?>">
+                <button type="submit">Search for Teams</button> 
+            </form>
+            <form>
+                <button type="submit">Create a team</button> 
+            </form>
             <?php if ($teamQueryResult->num_rows > 0): ?>
                 <table>
                     <thead>
@@ -120,5 +134,10 @@ $teamQueryResult = $conn->query($teamQuery);
                 echo "No teams found.<br>";
             endif; ?>
         </div>
+
+        <!-- Logout Button -->
+        <form method="post" action="login.html">
+            <button type="submit">Logout</button>
+        </form>
     </body>
 </html>

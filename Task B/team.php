@@ -19,9 +19,11 @@ if (!$teamID) {
         <title>View Team</title>
     </head>
     <body>
+        <!-- Header -->
         <h1>Your Team:</h1>
         <h2>Team ID: <?=$teamID?></h2>
 
+        <!-- Name Change -->
         <?php
         $teamQuery = "SELECT * FROM Team WHERE ID = $teamID";
         $teamResult = $conn->query($teamQuery);
@@ -39,6 +41,7 @@ if (!$teamID) {
         endif;
         ?>
 
+        <!-- Team Members -->
         <h3>Team Members:</h3>
         <?php
         $membersQuery = "SELECT s.Name, s.ID FROM TeamMember tm JOIN Student s ON tm.StudentID = s.ID WHERE tm.TeamID = $teamID";
@@ -65,6 +68,7 @@ if (!$teamID) {
             <p>No team members found.</p>
         <?php endif; ?>
 
+        <!-- Dashboard Button -->
         <form>
             <h3>Return to your Dashboard:</h3>
             <input type="hidden" name="studentID" value="<?= $studentID ?>">
