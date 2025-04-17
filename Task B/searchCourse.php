@@ -90,6 +90,21 @@ $courseProfessor = $_GET ['professor'] ?? '';
         if(!$result){
             die("Query failed: " . $conn->error . "<br><pre>$query</pre>");
         }
+
+        $enrolledCoursesQuery = 
+        "SELECT c.ID
+        FROM Course c
+        JOIN Enrollment e
+        ON c.ID = e.CourseID
+        WHERE e.StudentID = $studentID";
+        $enrolledCoursesResult = $conn->query($enrolledCoursesQuery);
+        
+        $enrolledCourses = [];
+        if ($enrolledCoursesResult) {
+            while ($row = $enrolledCoursesResult->fetch_assoc()) {
+                $enrolledCourses[] = $row['ID'];
+            }
+        }
         ?>
 
         <div>
@@ -111,13 +126,18 @@ $courseProfessor = $_GET ['professor'] ?? '';
                             <td><?= $row['courseSemester'] ?></td>
                             <td><?= $row['courseYear'] ?></td>
                             <td><?= $row['professorName'] ?></td>
-                            <td>
-                                <form method="get" action="addCourse.php">
-                                    <input type="hidden" name="studentID" value="<?= $studentID ?>">
-                                    <input type="hidden" name="courseID" value="<?= $row['courseID'] ?>">
-                                    <button type="submit">Enroll</button>
-                                </form>
-                            </td>
+
+                            <?php if(!in_array($row['courseID'], $enrolledCourses)): ?>
+                                <td>
+                                    <form method="get" action="addCourse.php">
+                                        <input type="hidden" name="studentID" value="<?= $studentID ?>">
+                                        <input type="hidden" name="courseID" value="<?= $row['courseID'] ?>">
+                                        <button type="submit">Enroll</button>
+                                    </form>
+                                </td>
+                            <?php else: ?>
+                                <td><em>Already Enrolled</em></td>
+                            <?php endif; ?>
                         </tr>
                      <?php endwhile; ?>
                 </table>

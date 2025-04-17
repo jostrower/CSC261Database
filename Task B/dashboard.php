@@ -43,6 +43,10 @@ $teamQueryResult = $conn->query($teamQuery);
         <title>Student Dashboard</title>
     </head>
     <body>
+        <?php if (isset($_GET['deletedTeam']) && $_GET['deletedTeam'] === 'true'): ?>
+            <script>alert("You were the last member of the team. The team has been deleted.");</script>
+        <?php endif; ?>
+        
         <!-- Header -->
         <h1>Student Dashboard</h1>
         <h2>Welcome, <?=$studentName?>!</h2>
@@ -78,6 +82,11 @@ $teamQueryResult = $conn->query($teamQuery);
                             <td><?= $row['Year'] ?></td>
                             <td><?= $row['ProfessorName'] ?></td>
                             <td>
+                                <form method="get" action="viewTeams.php">
+                                    <input type="hidden" name="studentID" value="<?= $studentID ?>">
+                                    <input type="hidden" name="courseID" value="<?= $row['ID'] ?>">
+                                    <button type="submit">View Teams</button>
+                                </form>
                                 <form method="post" action="dropCourse.php">
                                     <input type="hidden" name="studentID" value="<?= $studentID ?>">
                                     <input type="hidden" name="courseID" value="<?= $row['ID'] ?>">
@@ -95,12 +104,9 @@ $teamQueryResult = $conn->query($teamQuery);
         <!-- Team List -->
         <div>
             <h3>Your teams:</h3>
-            <form method = "get" action = "searchTeam.php">
+            <form method = "get" action = "createTeam.php">
                 <input type = "hidden" name = "studentID" value = "<?= $studentID ?>">
-                <button type="submit">Search for Teams</button> 
-            </form>
-            <form>
-                <button type="submit">Create a team</button> 
+                <button type="submit">Create a Team</button> 
             </form>
             <?php if ($teamQueryResult->num_rows > 0): ?>
                 <table>
