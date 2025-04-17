@@ -70,9 +70,8 @@ if (!$teamID) {
 
         <!-- Dashboard Button -->
         <form>
-            <h3>Return to your Dashboard:</h3>
             <input type="hidden" name="studentID" value="<?= $studentID ?>">
-            <button type="submit" formaction="dashboard.php">Dashboard</button>
+            <button type="submit" formaction="dashboard.php">Back to Dashboard</button>
         </form>
 
     </body>

@@ -37,5 +37,10 @@ $enrolledCourses = $conn->query($enrolledCoursesQuery);
 
             <button type="submit">Create Team</button>
         </form>
+
+        <form>
+            <input type="hidden" name="studentID" value="<?= $studentID ?>">
+            <button type="submit" formaction="dashboard.php">Back to Dashboard</button>
+        </form>
     </body>
 </html>
