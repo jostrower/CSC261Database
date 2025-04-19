@@ -1,22 +1,56 @@
 body {
     background: linear-gradient(to right, #e0f7fa, #e1f5fe);
     color: #003366;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Georgia, serif;
     margin: 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+  .site-header {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 999;
+  }
   
-  /* Top title styling */
+  .site-logo {
+    height: 150px;
+    width: auto;
+    border-radius: 50%;
+    object-fit: contain;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .home-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    text-decoration: none;
+  }
+  
+  .home-icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 12px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .home-icon:hover {
+    transform: scale(1.05);
+    opacity: 0.85;
+  }
+
   .page-title {
     margin-top: 40px;
     font-size: 60px;
     color: #003366;
   }
   
-  /* Welcome Page Container */
   .welcome-container {
     text-align: center;
     margin-top: 80px;
@@ -28,21 +62,18 @@ body {
     width: 90%;
   }
   
-  /* Welcome Heading */
   .welcome-container h1 {
     font-size: 48px;
     margin-bottom: 20px;
     color: #003366;
   }
-  
-  /* Welcome subtext */
+
   .welcome-container p {
     font-size: 20px;
     color: #336699;
     margin-bottom: 30px;
   }
   
-  /* Button Group */
   .button-group {
     display: flex;
     flex-direction: column;
@@ -65,7 +96,6 @@ body {
     transform: translateY(-2px);
   }
   
-  /* Login container (unchanged from original) */
   .login-container {
     margin-top: 30px;
     text-align: center;
