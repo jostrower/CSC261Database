@@ -41,6 +41,7 @@ $teamQueryResult = $conn->query($teamQuery);
 <html lang="en">
     <head>
         <title>Student Dashboard</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <?php if (isset($_GET['deletedTeam']) && $_GET['deletedTeam'] === 'true'): ?>
@@ -83,8 +84,9 @@ $teamQueryResult = $conn->query($teamQuery);
                             <td><?= $row['ProfessorName'] ?></td>
                             <td>
                                 <form method="get" action="viewTeams.php">
-                                    <input type="hidden" name="studentID" value="<?= $studentID ?>">
+                                    <input type="hidden" name="ID" value="<?= $studentID ?>">
                                     <input type="hidden" name="courseID" value="<?= $row['ID'] ?>">
+                                    <input type="hidden" name="type" value="student">
                                     <button type="submit">View Teams</button>
                                 </form>
                                 <form method="post" action="dropCourse.php">
@@ -123,8 +125,10 @@ $teamQueryResult = $conn->query($teamQuery);
                             <td><?= $row['CourseID'] ?></td>
                             <td>
                                 <form method="get" action="team.php">
-                                    <input type="hidden" name="studentID" value="<?= $studentID ?>">
+                                    <input type="hidden" name="ID" value="<?= $studentID ?>">
                                     <input type="hidden" name="teamID" value="<?= $row['ID'] ?>">
+                                    <input type="hidden" name="courseID" value="<?= $row['CourseID'] ?>">
+                                    <input type="hidden" name="type" value="student">
                                     <button type="submit">View</button>
                                 </form>
                                 <form method="post" action="dropTeam.php">
@@ -142,7 +146,7 @@ $teamQueryResult = $conn->query($teamQuery);
         </div>
 
         <!-- Logout Button -->
-        <form method="post" action="login.html">
+        <form method="post" action="welcomePage.html">
             <button type="submit">Logout</button>
         </form>
     </body>

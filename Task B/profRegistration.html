@@ -18,32 +18,23 @@
             <label for="name">Name:</label><br>
             <input type="text" id="name" name="name" required><br><br>
 
-            <label for="major">Major:</label><br>
-            <input type="text" id="major" name="major" required><br><br>
-
-            <label for="year">Year:</label><br>
-            <select id="year" name="year" required>
-                <option value="" disabled selected>Select your year</option>
-                <option value=1>Freshman</option>
-                <option value=2>Sophomore</option>
-                <option value=3>Junior</option>
-                <option value=4>Senior</option>
-            </select> <br><br>
+            <label for="major">Department ID:</label><br>
+            <input type="text" id="departmentID" name="departmentID" required><br><br>           
 
             <label for="email">Email:</label><br>
             <input type="text" id="email" name="email" required><br><br>
 
             <button type="submit">Register</button>
 
-            <input type="hidden" name="ID" id="studentIDField">
+            <input type="hidden" name="ID" id="profIDField">
             <script>
                 // Get the studentID from the URL parameters
                 const urlParams = new URLSearchParams(window.location.search);
-                const studentID = urlParams.get('studentID');
-                document.getElementById('studentIDField').value = studentID;
+                const profID = urlParams.get('profID');
+                document.getElementById('profIDField').value = profID;
             </script>
 
-            <input type="hidden" name="type" value="student">
+            <input type="hidden" name="type" value="professor">
         </form>
 
     </body>

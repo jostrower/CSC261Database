@@ -22,6 +22,6 @@ VALUES ($studentID, $teamID)
 ";
 $insertResult = $conn->query($insert);
 
-header("Location: viewTeams.php?studentID=$studentID&courseID=$courseID");
+header("Location: viewTeams.php?ID=$studentID&courseID=$courseID&type=student");
 exit;
 ?>

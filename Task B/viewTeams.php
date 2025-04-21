@@ -1,11 +1,18 @@
 <?php
 include 'db.php';
 
-$studentID = $_GET ['studentID'] ?? null;
+$ID = $_GET ['ID'] ?? null;
 $courseID = $_GET ['courseID'] ?? null;
+$type = $_GET ['type'] ?? null;
 
-if ($studentID == null || $courseID == null) {
-    die("No student ID or course ID submitted.");
+if(!$ID){
+    die("No student ID submitted.");
+}
+if(!$courseID){
+    die("No course ID submitted.");
+}
+if(!$type){
+    die("No type submitted.");
 }
 
 $teamQuery = "
@@ -19,14 +26,18 @@ $teamQueryResult = $conn ->query($teamQuery);
 <html lang="en">
     <head>
         <title>View Teams</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <?php if (isset($_GET['deletedTeam']) && $_GET['deletedTeam'] === 'true'): ?>
+            <script>alert("You removed the last member of the team. The team has been deleted.");</script>
+        <?php endif; ?>
+
         <h1>View Teams</h1>
         <h2>Course ID: <?= htmlspecialchars($courseID) ?></h2>
         
         <!-- Team List -->
         <div>
-            <h3>Your teams:</h3>
             <?php if ($teamQueryResult->num_rows > 0): ?>
                 <table>
                     <thead>
@@ -52,7 +63,7 @@ $teamQueryResult = $conn ->query($teamQuery);
                             <td>
                                 <ul>
                                     <?php while ($memberRow = $memberQueryResult->fetch_assoc()): ?>
-                                        <?php if ($memberRow['ID'] == $studentID): ?>
+                                        <?php if ($memberRow['ID'] == $ID && $type == 'student'): ?>
                                             <li><strong><?= htmlspecialchars($memberRow['Name']) ?> (You)</strong></li>
                                             <?php $alreadyMember = true; ?>
                                         <?php else: ?>
@@ -64,12 +75,29 @@ $teamQueryResult = $conn ->query($teamQuery);
 
                             <?php if (!$alreadyMember): ?>
                                 <td>
-                                    <form method="post" action="joinTeam.php">
-                                        <input type="hidden" name="studentID" value="<?= $studentID ?>">
-                                        <input type="hidden" name="courseID" value="<?= $courseID ?>">
-                                        <input type="hidden" name="teamID" value="<?= $row['ID'] ?>">
-                                        <button type="submit">Join Team</button>
-                                    </form>
+                                    <?php if ($type == 'student'): ?>
+                                        <form method="post" action="joinTeam.php">
+                                            <input type="hidden" name="studentID" value="<?= $ID ?>">
+                                            <input type="hidden" name="courseID" value="<?= $courseID ?>">
+                                            <input type="hidden" name="teamID" value="<?= $row['ID'] ?>">
+                                            <button type="submit">Join Team</button>
+                                        </form>
+                                    <?php elseif ($type == 'professor'): ?>
+                                        <form method="get" action="team.php">
+                                            <input type="hidden" name="ID" value="<?= $ID ?>">
+                                            <input type="hidden" name="teamID" value="<?= $row['ID'] ?>">
+                                            <input type="hidden" name="courseID" value="<?= $courseID ?>">
+                                            <input type="hidden" name="type" value="professor">
+                                            <button type="submit">Edit Team</button>
+                                        </form>
+                                        <form method="post" action="deleteTeam.php">
+                                            <input type="hidden" name="profID" value="<?= $ID ?>">
+                                            <input type="hidden" name="courseID" value="<?= $courseID ?>">
+                                            <input type="hidden" name="teamID" value="<?= $row['ID'] ?>">
+                                            <input type="hidden" name="type" value="professor">
+                                            <button type="submit">Delete Team</button>
+                                        </form>
+                                    <?php endif; ?>
                                 </td>
                             <?php else: ?>
                                 <td><em>Already Member</em></td>
@@ -83,8 +111,15 @@ $teamQueryResult = $conn ->query($teamQuery);
         </div>
 
         <!-- Back to Dashboard -->
-        <form method="get" action="dashboard.php">
-            <input type="hidden" name="studentID" value="<?= $studentID ?>">
-            <button type="submit">Back to Dashboard</button>
-        </form>
+        <?php if ($type == 'student'): ?>
+            <form method="get" action="dashboard.php">
+                <input type="hidden" name="studentID" value="<?= $ID ?>">
+                <button type="submit">Back to Dashboard</button>
+            </form>
+        <?php elseif ($type == 'professor'): ?>
+            <form method="get" action="profDashboard.php">
+                <input type="hidden" name="profID" value="<?= $ID ?>">
+                <button type="submit">Back to Dashboard</button>
+            </form>
+        <?php endif; ?>
     </body>

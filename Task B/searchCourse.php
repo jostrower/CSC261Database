@@ -18,6 +18,7 @@ $courseProfessor = $_GET ['professor'] ?? '';
     <head>
         <title>Search Course</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <!--Search for Courses-->
