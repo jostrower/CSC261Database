@@ -44,6 +44,12 @@ $teamQueryResult = $conn->query($teamQuery);
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+    <div class="site-header">
+            <img src="logo.png" alt="Group Search Logo" class="site-logo">
+        </div>
+    <a href="welcomePage.html" class="home-button" title="Go to Home">
+        <img src="home.png" alt="Home" class="home-icon">
+    </a>
         <?php if (isset($_GET['deletedTeam']) && $_GET['deletedTeam'] === 'true'): ?>
             <script>alert("You were the last member of the team. The team has been deleted.");</script>
         <?php endif; ?>

@@ -34,7 +34,12 @@ $courseQueryResult = $conn->query($courseQuery);
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-
+    <div class="site-header">
+            <img src="logo.png" alt="Group Search Logo" class="site-logo">
+        </div>
+    <a href="welcomePage.html" class="home-button" title="Go to Home">
+        <img src="home.png" alt="Home" class="home-icon">
+    </a>
         <!-- Header -->
         <h1>Professor Dashboard</h1>
         <h2>Welcome, <?=$profName?>!</h2>

@@ -16,5 +16,5 @@ There will be a login page where students are asked for their student ID. If thi
 I hosted the files on my betaweb account: ```jostrowe@betaweb.csug.rochester.edu:~/public_html/```.  
 The password for both the betaweb account and the MariaDB sql database on there is **DAh8jEgS**.  
 The sql files are not in the public_html folder, they are just in ```jostrowe@betaweb.csug.rochester.edu:~/```.  
-To view the project go to **https://betaweb.csug.rochester.edu/~jostrowe/login.html**.  
+To view the project go to **https://betaweb.csug.rochester.edu/~jostrowe/welcomePage.html**.  
 To reset the database, run ```mysql -u jostrowe -p jostrowe_1 < reset.sql``` in the betaweb server.

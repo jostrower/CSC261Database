@@ -43,6 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="site-header">
+            <img src="logo.png" alt="Group Search Logo" class="site-logo">
+        </div>
+    <a href="welcomePage.html" class="home-button" title="Go to Home">
+        <img src="home.png" alt="Home" class="home-icon">
+    </a>
     <h1>Create a New Course</h1>
     <form method="post" action="createCourse.php">
         <input type="hidden" name="profID" value="<?= $profID ?>">
