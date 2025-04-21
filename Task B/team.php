@@ -18,6 +18,11 @@ if (!$type) {
 if (!$courseID) {
     die("No course ID submitted.");
 }
+
+$leaderQuery = "SELECT LeaderID FROM Team WHERE ID = $teamID";
+$leaderResult = $conn->query($leaderQuery);
+$leaderRow = $leaderResult->fetch_assoc();
+$isLeader = ($leaderRow['LeaderID'] == $ID);
 ?>
 
 
@@ -44,15 +49,19 @@ if (!$courseID) {
         $teamResult = $conn->query($teamQuery);
         if ($teamResult && $teamResult->num_rows > 0):
             $row = $teamResult->fetch_assoc();?>
-            <form method="POST" action="updateTeamName.php">
-                <input type="hidden" name="teamID" value="<?= $teamID ?>">
-                <input type="hidden" name="ID" value="<?= $ID ?>">
-                <input type="hidden" name="type" value="<?= $type ?>">
-                <input type="hidden" name="courseID" value="<?= $courseID ?>">
-                <label for="teamName"> <strong>Team Name:</strong></label>
-                <input type="text" name="teamName" id="teamName" value="<?= htmlspecialchars($row['Name']) ?>" required>
-                <button type="submit">Update Name</button>
-            </form>
+            <?php if ($isLeader || $type == "professor"): ?>
+                <form method="POST" action="updateTeamName.php">
+                    <input type="hidden" name="teamID" value="<?= $teamID ?>">
+                    <input type="hidden" name="ID" value="<?= $ID ?>">
+                    <input type="hidden" name="type" value="<?= $type ?>">
+                    <input type="hidden" name="courseID" value="<?= $courseID ?>">
+                    <label for="teamName"> <strong>Team Name:</strong></label>
+                    <input type="text" name="teamName" id="teamName" value="<?= htmlspecialchars($row['Name']) ?>" required>
+                    <button type="submit">Update Name</button>
+                </form>
+            <?php else: ?>
+                <p><strong>Team Name:</strong> <?= htmlspecialchars($row['Name']) ?></p>
+            <?php endif; ?>
         <?php else :
             echo "<p>No team information found.</p>";
         endif;
@@ -67,7 +76,7 @@ if (!$courseID) {
             <ul>
                 <?php while ($memberRow = $membersResult->fetch_assoc()): ?>
                     <li>
-                        <?php if ($memberRow['ID'] != $ID || $type != "student"): ?>
+                        <?php if (($memberRow['ID'] != $ID && $isLeader) || $type == "professor"): ?>
                             <form method="POST" action="removeTeamMember.php" style="display:inline;">
                                 <?= htmlspecialchars($memberRow['Name']) ?> (ID: <?= $memberRow['ID'] ?>)
                                 <input type="hidden" name="teamID" value="<?= $teamID ?>">
@@ -77,8 +86,15 @@ if (!$courseID) {
                                 <input type="hidden" name="type" value="<?= $type ?>">
                                 <button type="submit">Remove</button>
                             </form>
-                        <?php else: ?>
+                        <?php elseif($memberRow['ID'] == $ID && $isLeader): ?>
+                            <strong><?= htmlspecialchars($memberRow['Name']) ?> (You) (Leader)</strong>
+                        <?php elseif($memberRow['ID'] == $ID): ?>
                             <strong><?= htmlspecialchars($memberRow['Name']) ?> (You)</strong>
+                        <?php else: ?>
+                            <?= htmlspecialchars($memberRow['Name']) ?> (ID: <?= $memberRow['ID'] ?>)
+                            <?php if ($leaderRow['LeaderID'] == $memberRow['ID']): ?>
+                                <strong> (Leader)</strong>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </li>
                 <?php endwhile; ?>

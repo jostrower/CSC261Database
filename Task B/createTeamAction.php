@@ -28,8 +28,8 @@ $teamID = end($teamIDs) + 1;
 
 $insertTeam = "
 INSERT 
-INTO Team (ID, Name, CourseID)
-VALUES ($teamID, '$teamName', '$courseID')";
+INTO Team (ID, Name, CourseID, LeaderID)
+VALUES ($teamID, '$teamName', '$courseID', $studentID)";
 $insertTeamResult = $conn->query($insertTeam);
 
 $insertMember = "

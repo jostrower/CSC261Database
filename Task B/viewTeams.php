@@ -53,6 +53,9 @@ $teamQueryResult = $conn ->query($teamQuery);
                         <th>Actions</th>
                     </thead>
                     <?php while ($row = $teamQueryResult->fetch_assoc()): ?>
+                            <?php
+                            $leaderID = $row['LeaderID'];
+                            ?>
                         <?php $alreadyMember = false; ?>
                             <td><?= $row['ID'] ?></td>
                             <td><?= $row['Name'] ?></td>
@@ -69,9 +72,14 @@ $teamQueryResult = $conn ->query($teamQuery);
                             <td>
                                 <ul>
                                     <?php while ($memberRow = $memberQueryResult->fetch_assoc()): ?>
-                                        <?php if ($memberRow['ID'] == $ID && $type == 'student'): ?>
+                                        <?php if ($memberRow['ID'] == $ID && $type == 'student' && $leaderID == $ID): ?>
+                                            <li><strong><?= htmlspecialchars($memberRow['Name']) ?> (You) (Leader)</strong></li>
+                                            <?php $alreadyMember = true; ?>
+                                        <?php elseif ($memberRow['ID'] == $ID && $type == 'student'): ?>
                                             <li><strong><?= htmlspecialchars($memberRow['Name']) ?> (You)</strong></li>
                                             <?php $alreadyMember = true; ?>
+                                        <?php elseif ($memberRow['ID'] == $leaderID): ?>
+                                            <li><strong><?= htmlspecialchars($memberRow['Name']) ?> (Leader)</strong></li>
                                         <?php else: ?>
                                             <li><?= htmlspecialchars($memberRow['Name']) ?> (ID: <?= htmlspecialchars($memberRow['ID']) ?>)</li>
                                         <?php endif; ?>

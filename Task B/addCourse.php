@@ -8,7 +8,7 @@ if (!$studentID) {
     die("No student ID submitted.");
 }
 if (!$courseID) {
-    die("No team ID submitted.");
+    die("No course ID submitted.");
 }
 
 
